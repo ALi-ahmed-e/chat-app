@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import Signup from './components/sign up/Signup';
+import Home from './components/home/Home';
+import ChatWindow from './components/chatwindow/ChatWindow';
+import Settings from './components/settings/Settings';
 function App() {
+
+
+
+
+  const RequireAuth = ({ children }) => {
+    return localStorage.getItem('user') ? (children) : <Navigate to='/signup' />
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className="App bg-slate-300">
+      <BrowserRouter>
+        <Routes>
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/' element={<RequireAuth><Home /></RequireAuth>} >
+            <Route path='chatwindow' element={<RequireAuth><ChatWindow /></RequireAuth>} />
+            <Route path='settings' element={<RequireAuth><Settings /></RequireAuth>} />
+
+          </Route>
+
+        </Routes>
+      </BrowserRouter>
     </div>
+
   );
 }
 
