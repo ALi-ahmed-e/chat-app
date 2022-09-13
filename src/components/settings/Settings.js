@@ -120,7 +120,7 @@ function Settings() {
     }
 
     return (
-        <div className='h-[100vh] w-fsfsg overflow-hidden' >
+        <div className='h-[100vh]  overflow-hidden bg-slate-200' >
             {userdata && <>
                 <div className=' flex items-center justify-center'>
 
@@ -138,6 +138,7 @@ function Settings() {
 
                 </div>
                 <input type="text" className=' text-center bg-transparent border-b-2 border-black focus:outline-none' value={et} onChange={(e) => setet(e.target.value)} />
+            <br/>
             <h1>id: {userdata.uid.slice(0,9)} </h1>
             </>}
 
