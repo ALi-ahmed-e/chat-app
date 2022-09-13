@@ -3,7 +3,7 @@ import SideBar from '../sidebar/SideBar';
 import { Outlet } from 'react-router-dom'
 function Home() {
     return (
-        <div>
+        <div className=' overflow-hidden'>
             <SideBar />
             <div style={{direction:'rtl'}}>
               <Outlet />  

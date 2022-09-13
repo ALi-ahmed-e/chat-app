@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { db } from '../../firebase';
-import { collection, where, query, getDocs, arrayUnion, doc, updateDoc, arrayRemove } from 'firebase/firestore'
+import { collection, where, query, getDocs, arrayUnion, doc, updateDoc, arrayRemove, onSnapshot } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { chataction } from '../../store/reducers/chatreducer'
@@ -84,6 +84,22 @@ function Chats() {
 
 
     }, []);
+
+
+
+
+    useEffect(() => {
+        const unsub = onSnapshot(doc(db, "users", userdata.uid), (doc) => {
+            fetchfriens()
+        });
+    }, []);
+
+
+
+
+
+
+
 
 
 
@@ -200,15 +216,17 @@ function Chats() {
                 <button className={`text-sm bg-emerald-500 m-1 py-2 px-3 rounded-lg text-white hover:bg-emerald-600 ${glow}`} id='name' onClick={(e) => sby(e.target.id)}>Search by name</button>
                 <button className={`text-sm bg-emerald-500 m-1 py-2 px-3 rounded-lg text-white hover:bg-emerald-600  ${glow2}`} id='id' onClick={(e) => sby(e.target.id)}>Search by id</button>
             </span>
-            {friends.map(e => <div key={Math.random()} onClick={() => {
+
+
+            {friends.map(e => <div key={Math.random()} onClick={(event) => {
                 const action = chatid(e.uid)
                 dispatch(action)
                 sessionStorage.setItem('chatid', e.uid)
                 navigate('chatwindow')
-            }} className='w-full  h-[50px] flex items-center my-4 bg-slate-300 rounded-r-md text-gray-800 hover:bg-slate-400 shadow-sm  hover:text-white transition-colors justify-between cursor-pointer'>
+            }} className={`w-full  h-[50px] flex items-center my-4 bg-slate-300 rounded-r-md text-gray-800 hover:bg-slate-400 shadow-sm  hover:text-white transition-colors justify-between cursor-pointer`}>
                 <div className='flex items-center'><img src={e.image} className='w-[40px] h-[40px] rounded-full ml-3' alt="" />
                     <span className=' ml-2'>{e.name}</span></div>
-                {e.uid != userdata.uid ? e.friends.includes(userdata.uid) ? <button className=' bg-green-500 mr-4 text-white px-2 rounded-md hover:bg-green-800 h-6 text-xs' >friends</button> : <button className=' bg-indigo-700 mr-4 text-white px-2 rounded-md hover:bg-indigo-800' onClick={() => addfriend(e.uid)}>add</button> : ''}
+                {e.uid != userdata.uid ? e.friends.includes(userdata.uid) ? '' : <button className=' bg-indigo-700 mr-4 text-white px-2 rounded-md hover:bg-indigo-800' onClick={() => addfriend(e.uid)}>add</button> : ''}
             </div>)}
 
 

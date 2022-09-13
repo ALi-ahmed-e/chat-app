@@ -114,28 +114,29 @@ function ChatWindow() {
     <>
       <div className=' w-fsfsg h-[100vh] overflow-hidden'>
 
-        <div className=' w-full h-[48px] bg-slate-500 flex items-center justify-start'>
+        <div className=' w-full h-[47.80px] bg-slate-500 flex items-center justify-start'>
           {userdata ? <><img src={userdata.image} alt="" className=' mr-3 w-[42px] h-[42px] rounded-full' /> <span className=' mr-3 text-white'>{userdata.name}</span></> : ''}
         </div>
 
-        <div className='h-[87.1vh] w-full bg-slate-200 overflow-scroll'>
+        <div className='h-[86.1vh] w-full bg-slate-200 overflow-y-scroll'>
 
-          {messages && messages.map(e => e.senderId == mydata.uid ? <div key={Math.random()} className=' min-w-16 w-20 rounded-lg rounded-tr-none mt-7 mr-3 bg-green-700 text-white'>
-            {e.msg}</div> : <div key={Math.random()} className=' min-w-16 w-20 rounded-lg rounded-tr-none my-7 mr-3 bg-slate-600 text-white'>
-            {e.msg}</div>)}
+         {messages && messages.map(e => e.senderId == mydata.uid ? <div key={Math.random()} className=' min-w-16 w-fit pl-4 pr-2 pt-2 rounded-lg rounded-tr-none mt-7 my-7 mr-3 bg-green-700 text-white'>{e.msg}  <div className='text-5xs me'>{e.time.slice(0,5)}{e.time.slice(8,11)}</div></div>
+            : <div key={Math.random()} className=' direction-ltr'><div key={Math.random()} className=' min-w-16 w-fit pr-4 pl-2 pt-2 rounded-lg rounded-tl-none my-7  bg-slate-600 text-white'>{e.msg}   <div className='text-5xs him'>{e.time.slice(0,5)}{e.time.slice(8,11)}</div></div></div>)}
+          
 
         </div>
 
         <div className=' w-full h-[52px] bg-indigo-700 items-center flex justify-around'>
 
           <form onSubmit={(e) => sendmsg(e)} className='flex w-full justify-around items-center'>
-            <button onClick={sendmsg} className=' bg-green-500 py-2 px-1 rounded-lg text-white hover:bg-green-600 h-10'>send <i className="fa-solid fa-paper-plane"></i></button>
+            <button onClick={sendmsg} className=' bg-green-500 py-2 px-1 rounded-lg text-white hover:bg-green-600 h-10 text-xs sm:text-base'>send <i className="fa-solid fa-paper-plane"></i></button>
             <input ref={mi} onChange={(e) => setmsg(e.target.value)} type="text" className=' w-[87%] py-2 px-1 rounded-md bg-sky-100 outline-none text-center' placeholder='write a message' />
 
           </form>
         </div>
 
       </div>
+      <div className='  w-full bg-indigo-700 h-[0.3vh] fixed bottom-0'></div>
     </>
   )
 }

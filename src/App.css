@@ -13,13 +13,41 @@
 
 .w-fsfsg {
   width: calc(100% - 260px);
+  background:#4338cA !important;
 }
-.glow{
-background: rgb(142, 85, 248);
+
+.glow {
+  background: rgb(142, 85, 248);
 }
-.glow:hover{
-background: rgb(125, 61, 245);
+
+.glow:hover {
+  background: rgb(125, 61, 245);
 }
+
+.direction-ltr {
+  direction: ltr;
+}
+
+.me {
+  top: 10px;
+  direction: ltr;
+
+  display: flex;
+  justify-content: end;
+}
+
+.him {
+  top: 10px;
+  direction: ltr;
+
+  display: flex;
+  justify-content: start;
+}
+
+.text-5xs {
+  font-size: 8px;
+}
+
 
 
 @media (max-width:640px) {
@@ -27,3 +55,9 @@ background: rgb(125, 61, 245);
     width: 100%;
   }
 }
+
+/* @media (max-width:410px) {
+  .bii{
+  /* left: 180px; */
+/* }
+} */
