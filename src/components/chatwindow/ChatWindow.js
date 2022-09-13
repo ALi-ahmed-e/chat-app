@@ -111,10 +111,10 @@ function ChatWindow() {
 
 
   return (
-    <>
-      <div className=' w-fsfsg h-[100vh] bg-black overflow-hidden'>
+  
+      <div className=' w-fsfsg h-[100%] bg-black overflow-hidden fixed bottom-0'>
 
-        <div className=' w-full h-[7%] bg-slate-500 flex items-center justify-start'>
+        <div className=' w-full h-[7.5%] bg-slate-500 flex items-center justify-start'>
           {userdata ? <><img src={userdata.image} alt="" className=' mr-3 w-[42px] h-[42px] rounded-full' /> <span className=' mr-3 text-white'>{userdata.name}</span></> : ''}
         </div>
 
@@ -126,7 +126,7 @@ function ChatWindow() {
 
         </div>
 
-        <div className=' w-full h-[8%] bg-indigo-700 items-center flex justify-around'>
+        <div className=' w-full h-[7.5%] bg-indigo-700 items-center flex justify-around'>
 
           <form onSubmit={(e) => sendmsg(e)} className='flex w-full justify-around items-center'>
             <button onClick={sendmsg} className=' bg-green-500 py-2 px-1 rounded-lg text-white hover:bg-green-600 h-10 text-xs sm:text-base'>send <i className="fa-solid fa-paper-plane"></i></button>
@@ -136,8 +136,8 @@ function ChatWindow() {
         </div>
 
       </div>
-      <div className='  w-full bg-indigo-700 h-[0.3vh] fixed bottom-0'></div>
-    </>
+    
+   
   )
 }
 
