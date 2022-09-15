@@ -204,10 +204,12 @@ function Chats() {
         fetchfriens()
     }
 
+
+
     return (
         <div>
             <form onSubmit={(e) => searchpeople(e)}>
-                <span className='flex justify-around items-center  mt-2'>
+                <span className='flex justify-around items-center  mt-2 w-full'>
                     <input ref={si} className=' bg-sky-200 py-2 px-2 rounded-md outline-none' type="text" onChange={(e) => setvalue(e.target.value)} placeholder='search for friends...' />
                     <button onClick={searchpeople} className=' transition-all bg-teal-400 text-white py-2 px-3 rounded-lg hover:bg-teal-600'><i className="fa-solid fa-magnifying-glass"></i></button>
                 </span>

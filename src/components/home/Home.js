@@ -1,6 +1,7 @@
 import React from 'react'
 import SideBar from '../sidebar/SideBar';
 import { Outlet } from 'react-router-dom'
+import Notification from '../notifiaction/Notification';
 function Home() {
     return (
         <div className=' overflow-hidden'>
@@ -8,7 +9,7 @@ function Home() {
             <div style={{direction:'rtl'}}>
               <Outlet />  
             </div>
-            
+            <Notification />
         </div>
     )
 }

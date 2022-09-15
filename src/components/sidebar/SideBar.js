@@ -5,7 +5,7 @@ import Chats from '../chats/Chats'
 import { onAuthStateChanged } from 'firebase/auth'
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 function SideBar() {
-    const [sidebar, setsidebar] = useState();
+    const [sidebar, setsidebar] = useState('hide');
     const navigate = useNavigate()
     const [userdata, setuserdata] = useState();
     const [prof, setprof] = useState();
@@ -44,20 +44,7 @@ function SideBar() {
         }
     }
 
-    useEffect(() => {
 
-        const q = query(collection(db, "messages")
-            , where("reciverId", '==', JSON.parse(localStorage.getItem('user')).uid));
-
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            // console.log(querySnapshot)
-            // querySnapshot.forEach((doc) => {
-            //     console.log(doc.data().senderId);
-            // });
-        });
-
-
-    }, []);
 
 
 
@@ -75,7 +62,7 @@ function SideBar() {
             </div>
 
 
-            <div className='h-[85%] w-full bg-white overflow-scroll'>
+            <div className='h-[85%] w-[99%] rounded-tr-md bg-white overflow-scroll'>
 
 
 
@@ -87,7 +74,7 @@ function SideBar() {
             </div>
 
 
-            <div className=' w-[260px] h-[7.5%] bg-indigo-700 items-center flex justify-center'>
+            <div className=' w-[99%]  h-[7.5%] bg-indigo-700 items-center flex justify-center'>
 
                 <div className='flex items-center justify-center w-[50%]' onClick={() => navigate('/settings')}>
                     {prof}
