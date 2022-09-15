@@ -49,11 +49,11 @@ function ChatWindow() {
   const sendmsg = async (e) => {
     e.preventDefault()
 
-    if (msg) {
+    if (mi.current.value) {
 
       const d = new Date()
       const docRef = await addDoc(collection(db, "messages"), {
-        msg,
+        msg:mi.current.value,
         time: d.toLocaleTimeString(),
         chatcode: chatCode,
         senderId: mydata.uid,
@@ -65,6 +65,8 @@ function ChatWindow() {
       }).then(() => {
         mi.current.value = ''
         fetchmsgs()
+      setvideo()
+      setphoto()
       })
 
     }
@@ -227,11 +229,11 @@ function ChatWindow() {
 
       <div className='h-[85%] w-full bg-slate-200 overflow-y-scroll'>
 
-        {messages && messages.map(e => e.senderId == mydata.uid ? <div key={Math.random()} className=' max-w-[50%] w-fit pl-2 pr-2 pt-2 rounded-lg rounded-br-none mt-7 my-7 mr-3 bg-green-700 text-white'>
+        {messages && messages.map(e => e.senderId == mydata.uid ? <div key={Math.random()} className=' maxw w-fit pl-2 pr-2 pt-2 rounded-lg rounded-br-none mt-7 my-7 mr-3 bg-green-700 text-white'>
 
           <div>
-            {e.photo != 'na' ? <img src={e.photo} alt="" className=' rounded-md' /> : ''}
-            {e.video != 'na' ? <video src={e.video} className=' rounded-md'></video> : ''}
+            {e.photo != 'na' ? <img  src={e.photo} alt="" className=' rounded-md' /> : ''}
+            {e.video != 'na' ? <video autoPlay={false} controls src={e.video} className=' rounded-md'></video> : ''}
 
           </div>
 
@@ -243,11 +245,11 @@ function ChatWindow() {
           </div>
 
         </div>
-          : <div key={Math.random()} className=' direction-ltr'><div key={Math.random()} className=' max-w-[50%] w-fit pl-2 pr-2 pt-2 rounded-lg rounded-bl-none mt-7 my-7 mr-3 bg-slate-600 text-white'>
+          : <div key={Math.random()} className=' direction-ltr'><div key={Math.random()} className=' maxw w-fit pl-2 pr-2 pt-2 rounded-lg rounded-bl-none mt-7 my-7 mr-3 bg-slate-600 text-white'>
 
             <div>
               {e.photo != 'na' ? <img src={e.photo} alt="" className=' rounded-md' /> : ''}
-              {e.video != 'na' ? <video src={e.video} className=' rounded-md'></video> : ''}
+              {e.video != 'na' ? <video  controls src={e.video} className=' rounded-md'></video> : ''}
 
             </div>
 
@@ -269,7 +271,7 @@ function ChatWindow() {
       <div className=' w-full h-[7.5%] bg-indigo-700 items-center flex justify-around'>
 
         <form onSubmit={(e) => sendmsg(e)} className='flex w-full justify-around items-center'>
-          <button onClick={sendmsg} className=' bg-green-500 py-2 px-1 rounded-lg text-white hover:bg-green-600 h-10 text-xs sm:text-base'>send <i className="fa-solid fa-paper-plane"></i></button>
+          <button onClick={sendmsg} className=' bg-green-500  rounded-lg text-white hover:bg-green-600 h-10 w-10  flex items-center justify-center'><i className="fa-solid fa-paper-plane"></i></button>
           <span className=' w-[85%] flex items-center justify-center'>
 
             <label htmlFor="upload-photo" className=' bg-sky-100 h-[40px] px-3 flex items-center rounded-r-md cursor-pointer hover:bg-sky-200' >
@@ -280,7 +282,7 @@ function ChatWindow() {
             </label>
 
 
-            <input ref={mi} onChange={(e) => setmsg(e.target.value)} type="text" className=' w-[90%] py-2 px-1 rounded-l-md bg-sky-100 outline-none text-center' placeholder='write a message' />
+            <input ref={mi}  type="text" className=' w-[90%] py-2 px-1 rounded-l-md bg-sky-100 outline-none text-center' placeholder='write a message' />
           </span>
 
         </form>
