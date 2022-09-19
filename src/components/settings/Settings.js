@@ -6,22 +6,20 @@ import { UserAuth } from '../../context/AuthContext';
 import { doc, updateDoc } from 'firebase/firestore'
 function Settings() {
     const [userdata, setuserdata] = useState();
-    const [et, setet] = useState();
+    // const [et, setet] = useState();
     const [img, setImg] = useState();
     const [btnsave, setbtnsave] = useState('save');
-    const { logout,deleteacc } = UserAuth()
-
-
+    const { logout, deleteacc } = UserAuth()
+    const et = useRef()
+    const [pls, setpls] = useState();
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 localStorage.setItem('user', JSON.stringify(user))
-                setet(user.displayName)
+                et.current.value = user.displayName
                 setuserdata(user)
                 setImg(user.photoURL)
-                // console.log(user.uid)
-
             } else {
 
             }
@@ -30,32 +28,36 @@ function Settings() {
     }, []);
 
 
-    
+
+
 
     const setimg = async () => {
+        if (et.current.value) {
+            console.log(et.current.value)
+            updateProfile(auth.currentUser, {
+                displayName: et.current.value,
+                photoURL: img,
 
-        updateProfile(auth.currentUser, {
-            displayName: et,
-            photoURL: img,
+            }).then((user) => {
+                const washingtonRef = doc(db, "users", userdata.uid);
+                updateDoc(washingtonRef, {
+                    name: et.current.value,
+                    image: img
+                    
+                }).then(() => {
+                    localStorage.setItem('user', JSON.stringify(auth.currentUser))
+                    setuserdata(auth.currentUser)
+                    setpls('')
+                    window.location.reload()
+                })
 
-        }).then((user) => {
-            // console.log(et)
-            // console.log(img)
-            const washingtonRef = doc(db, "users", userdata.uid);
-            updateDoc(washingtonRef, {
-                name: et,
-                image: img,
-            }).then(()=>{
-                localStorage.setItem('user', JSON.stringify(auth.currentUser))
-            setuserdata(auth.currentUser)
-             window.location.reload()
+
+            }).catch((error) => {
+                console.log(error)
             })
-            
-
-        }).catch((error) => {
-            console.log(error)
-        })
-
+        }else{
+            console.log(et.current.value)
+        }
     }
 
 
@@ -120,31 +122,35 @@ function Settings() {
     }
 
     return (
-        <div className='h-[100vh]  overflow-hidden bg-slate-200' >
-            {userdata && <>
-                <div className=' flex items-center justify-center'>
+        <div className='h-[100vh] w-fsfsg  overflow-hidden  text-white' >
+
+            <div className=' bg-slate-900 w-[96%] h-96 mx-auto my-32 rounded-xl max-w-[700px] sm:w-[90%]  '>
+                <div className='  bg-[#0c0c0c] h-20 w-full rounded-t-xl flex items-center justify-center'>
 
 
-                    <label htmlFor="upload-photo" className=' bg-slate-600/50 absolute w-40 h-[160px] rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-all'>
-                        <div className=''>
-                            <i className="fa-solid fa-pen-to-square text-4xl"></i>
-                            <input type="file" className=' hidden' name="photo" id="upload-photo" onChange={(e) => uploadImg(e.target.files[0])} />
-
-                        </div>
-                    </label>
+                    <div className=' flex items-center justify-center mt-20 '>
 
 
-                    <img src={img} alt="" className='mx-auto my-5 rounded-full h-40 w-40 inline' />
+                        <label htmlFor="upload-photo" className=' bg-slate-600/50 absolute w-[97px] h-[97px] rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-all'>
+                            <div className=''>
+                                <i className="fa-solid fa-pen-to-square text-2xl"></i>
+                                <input type="file" className=' hidden' name="photo" id="upload-photo" onChange={(e) => uploadImg(e.target.files[0])} />
+
+                            </div>
+                        </label>
+
+
+                        <img src={img} alt="" className=' border-slate-900 border-8 mx-auto my-5 rounded-full h-30 w-30 inline' />
+
+                    </div>
+
 
                 </div>
-                <input type="text" className=' text-center bg-transparent border-b-2 border-black focus:outline-none' value={et} onChange={(e) => setet(e.target.value)} />
-            <br/>
-            <h1>id: {userdata.uid.slice(0,9)} </h1>
-            </>}
-
-            <button className=' bg-indigo-500 py-1 px-3 rounded-md text-white hover:bg-indigo-700 block mx-auto my-5' onClick={() => setimg()}>{btnsave}</button>
-            <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => logut()}>logout</button>
-            <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => deleteacc()}>Delete Account</button>
+                <input type="text" className={`text-center bg-transparent border-b-2 border-white outline-none focus:border-sky-400 mt-20`} ref={et} onChange={() => setpls('animate-bounce')} />
+                <button className={` ${pls} bg-indigo-500 py-1 px-3 rounded-md text-white hover:bg-indigo-700 block mx-auto my-5`} onClick={() => setimg()}>{btnsave}</button>
+                <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => logut()}>logout</button>
+                <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => deleteacc()}>Delete Account</button>
+            </div>
 
         </div>
     )
