@@ -140,7 +140,7 @@ function Settings() {
                         </label>
 
 
-                        <img src={img} alt="" className=' border-slate-900 border-8 mx-auto my-5 rounded-full h-30 w-30 inline' />
+                        <img src={img} alt="" className=' border-slate-900 border-8 mx-auto my-5 rounded-full h-[112px] w-[112px] inline' />
 
                     </div>
 
