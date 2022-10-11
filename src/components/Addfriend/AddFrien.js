@@ -188,7 +188,7 @@ function AddFrien() {
             {friends.map(e => <div key={Math.random()}  className={`w-[95%]  h-[50px] mx-auto flex bg-[#1d2835] items-center my-4 rounded-md text-white hover:bg-slate-600 shadow-sm  hover:text-white transition-colors justify-between cursor-pointer`}>
                 <div className='flex items-center'><img src={e.image} className='w-[40px] h-[40px] rounded-full ml-3' alt="" />
                     <span className=' ml-2'>{e.name}</span></div>
-                {e.uid != userdata.uid ? e.friends.includes(userdata.uid) ? <button className=' bg-green-600 mr-4 text-white px-2 rounded-sm hover:bg-green-700 transition-all' onClick={() => removefriend(e.uid)}>Remove</button> : <button className=' bg-indigo-700 mr-4 text-white px-2 rounded-sm hover:bg-indigo-800' onClick={() => addfriend(e.uid)}>Add</button> : ''}
+                {e.uid != userdata.uid ? e.friends.includes(userdata.uid) ? <button className=' bg-green-600 mr-4 text-white px-2 rounded-sm hover:bg-green-700 transition-all' onClick={() => removefriend(e.uid)}>Remove</button> : <button className=' bg-indigo-700 mr-4 text-white px-2 rounded-sm hover:bg-indigo-800' onClick={() => addfriend(e.uid)}>Add</button> : <button className=' bg-sky-700 mr-4 text-white px-2 rounded-sm hover:bg-sky-800' >You</button>}
             </div>)}
 
 

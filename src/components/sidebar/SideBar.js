@@ -142,7 +142,7 @@ function SideBar() {
 
 
                 <NavLink onClick={() => setsidebar('hide')} to='/settings' className='shadow-md shadow-black text-white bg-slate-700  h-12 w-12 flex items-center justify-center mx-auto my-2 rounded-full cursor-pointer  hover:rounded-lg trans-4 hover:bg-green-700 hover:text-white'>
-                    <img src={userdata.photoURL} alt="" className=' border-[1px] border-white w-7  h-7 rounded-lg' />
+                    <img src={userdata&&userdata.photoURL} alt="" className=' border-[1px] border-white w-7  h-7 rounded-lg' />
                     <span className=' absolute'>
                         <i className="fa-solid fa-gear  text-md mt-6 ml-4"></i>
                     </span>

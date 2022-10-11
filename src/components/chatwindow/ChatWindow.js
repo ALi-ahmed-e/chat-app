@@ -51,7 +51,7 @@ function ChatWindow() {
   const sendmsg = async (e) => {
     e.preventDefault()
 
-    if (mi.current.value) {
+    if (mi.current.value || photo || video) {
 
       const d = new Date()
       const docRef = await addDoc(collection(db, "messages"), {
@@ -217,7 +217,7 @@ function ChatWindow() {
       friends: arrayRemove(mydata.uid)
     })
     navigate('/')
-    
+
   }
 
 
@@ -266,6 +266,7 @@ function ChatWindow() {
 
           </div>
           <h3 className={`text-center   text-white text-2xl mt-20`}>{userdata.name}</h3>
+          <h1 className=' dark:text-white'>iD: {userdata && userdata.uid.slice(0, 9)}</h1>
           <button className={` bg-indigo-500 py-1 px-3 rounded-md text-white hover:bg-indigo-700 block mx-auto my-5`} onClick={() => setchatwindowsettings('')}>send a message <i className="fa-solid fa-comment"></i></button>
           <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => removefriend()}>  delete from friends <i className="fa-solid fa-user-minus"></i></button>
         </div>}
@@ -320,10 +321,10 @@ function ChatWindow() {
         <div className=' w-full h-[7.5%] bg-indigo-900 items-center flex justify-around ' >
 
           <form onSubmit={(e) => sendmsg(e)} className='flex w-full justify-around items-center'>
-            <button onClick={sendmsg} className=' bg-green-700  rounded-lg text-white hover:bg-green-800 h-10 w-10  flex items-center justify-center'><i className="fa-solid fa-paper-plane"></i></button>
+            <button onClick={sendmsg} className=' w-[10%] bg-green-700  min-w-[40px] mx-1  rounded-lg text-white hover:bg-green-800 h-10   flex items-center justify-center'><i className="fa-solid fa-paper-plane"></i></button>
             <span className=' w-[85%] flex items-center justify-center'>
 
-              <label htmlFor="upload-photo" className=' bg-slate-900 h-[40px] px-3 text-white flex items-center rounded-r-md cursor-pointer hover:bg-slate-800' >
+              <label htmlFor="upload-photo" className=' bg-slate-900 min-w-[50px] w-[10%] h-[40px] px-3 text-white flex items-center rounded-r-md cursor-pointer hover:bg-slate-800' >
                 <div className=''>
                   {loading}
                   <input type="file" className=' hidden' name="photo" id="upload-photo" onChange={(e) => uploadfile(e.target.files[0])} />
@@ -331,7 +332,7 @@ function ChatWindow() {
               </label>
 
 
-              <input ref={mi} type="text" className=' w-[90%] py-2 px-1 rounded-l-md bg-slate-900 text-white outline-none text-center' placeholder='write a message' />
+              <input ref={mi} type="text" className=' ml-1 w-[90%] py-2 px-1 rounded-l-md bg-slate-900 text-white outline-none text-center' placeholder='write a message' />
             </span>
 
           </form>

@@ -6,7 +6,6 @@ import { UserAuth } from '../../context/AuthContext';
 import { doc, updateDoc } from 'firebase/firestore'
 function Settings() {
     const [userdata, setuserdata] = useState();
-    // const [et, setet] = useState();
     const [img, setImg] = useState();
     const [btnsave, setbtnsave] = useState('save');
     const { logout, deleteacc } = UserAuth()
@@ -20,6 +19,7 @@ function Settings() {
                 et.current.value = user.displayName
                 setuserdata(user)
                 setImg(user.photoURL)
+                
             } else {
 
             }
@@ -147,6 +147,7 @@ function Settings() {
 
                 </div>
                 <input type="text" className={`text-center bg-transparent border-b-2 border-white outline-none focus:border-sky-400 mt-20`} ref={et} onChange={() => setpls('animate-bounce')} />
+                <h1>iD: {userdata&&userdata.uid.slice(0,9)}</h1>
                 <button className={` ${pls} bg-indigo-500 py-1 px-3 rounded-md text-white hover:bg-indigo-700 block mx-auto my-5`} onClick={() => setimg()}>{btnsave}</button>
                 <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => logut()}>logout</button>
                 <button className=' bg-red-600 py-1 px-3 rounded-md text-white hover:bg-red-700 block mx-auto my-5' onClick={() => deleteacc()}>Delete Account</button>

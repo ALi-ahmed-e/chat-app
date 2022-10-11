@@ -2,7 +2,6 @@ import { useContext, createContext, useEffect, useState } from 'react'
 import {
     GoogleAuthProvider,
     signInWithPopup,
-    signInWithRedirect,
     signOut,
     onAuthStateChanged,
     deleteUser
@@ -36,6 +35,7 @@ export const AuthContextProvider = ({ children }) => {
 
         }).then(() => {
             localStorage.setItem('user', JSON.stringify(User))
+            window.location.reload()
 
         })
     };

@@ -15,18 +15,21 @@ function App() {
   const RequireAuth = ({ children }) => {
     return localStorage.getItem('user') ? (children) : <Navigate to='/signup' />
   }
+  const RequireAuth2 = ({ children }) => {
+    return localStorage.getItem('user') ? (children) : ''
+  }
 
 
   return (
 
     <div className="App">
       <BrowserRouter>
-        <SideBar />
+        <RequireAuth2><SideBar /></RequireAuth2>
         <Routes>
-          {/* <Route path='/' element={<SideBar />}> */}
+         
             <Route path='/chats' element={<RequireAuth><Chats /></RequireAuth>} />
 
-          {/* </Route> */}
+ 
           <Route path='/Addfriend' element={<RequireAuth><AddFrien /></RequireAuth>} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/' element={<RequireAuth><Home /></RequireAuth>} />
@@ -35,7 +38,6 @@ function App() {
           <Route path='/chatwindow' element={<RequireAuth><ChatWindow /></RequireAuth>} />
           <Route path='/settings' element={<RequireAuth><Settings /></RequireAuth>} />
 
-          {/* </Route> */}
 
 
 
